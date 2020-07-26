@@ -16,51 +16,79 @@
     var myChart = echarts.init(document.getElementById('main'));
     $.ajax({
         method: 'get',
-        url: 'http://localhost:8080/testEcharts1',
+        url: 'http://localhost:8080/traceTime',
         dataType: 'json',
         success: function (data) {
+            var dataTime = []
+            var costs = []
+            var names = []
+            for (let i in data) {
+                dataTime.push(data[i].datetime)
+                costs.push(data[i].cost)
+                names.push(data[i].methodName)
+            }
             var option = {
+                title: {
+                    text: "主进程-主线程"
+                },
+                toolbox: {
+                    feature: {
+                        dataZoom: {
+                            yAxisIndex: 'none'
+                        },
+                        restore: {},
+                        saveAsImage: {}
+                    }
+                },
+                tooltip: {
+                    show: true,
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'line',
+                        animation: false,
+                        label: {
+                            backgroundColor: '#505765',
+                            formatter: function (params) {
+                                return '方法名:'+params.seriesData[1].data;
+                            },
+                        }
+                    }
+                },
+                dataZoom: [{
+                        show: true,
+                        realtime: true,
+                        start: 65,
+                        end: 85
+                    }, {
+                        type: 'inside',
+                        realtime: true,
+                        start: 65,
+                        end: 85
+                    }],
                 xAxis: {
                     name: '日期',
                     type: 'category',
-                    data: [data[0].date,
-                        data[1].date,
-                        data[2].date,
-                        data[3].date,
-                        data[4].date,
-                        data[5].date,
-                        data[6].date,
-                        data[7].date,
-                        data[8].date,
-                        data[9].date,
-                        data[10].date,
-                        data[11].date]
+                    boundaryGap: false,
+                    axisLine: {onZero: false},
+                    data: dataTime
                 },
                 yAxis: {
-                    name: '访问量'
+                    name: '方法耗时'
                 },
                 series: [{
-
-                    data: [data[0].total,
-                        data[1].total,
-                        data[2].total,
-                        data[3].total,
-                        data[4].total,
-                        data[5].total,
-                        data[6].total,
-                        data[7].total,
-                        data[8].total,
-                        data[9].total,
-                        data[10].total,
-                        data[11].total],
-                    type: 'bar'
-                }]
+                    data: costs,
+                    type: 'line',
+                    name:"方法耗时"
+                },{
+                    type: 'line',
+                    data: names
+                }
+                ]
             };
-            myChart.setOption(option);
-        }});
-
             // 使用刚指定的配置项和数据显示图表。
-
+            myChart.setOption(option);
+        }
+    });
 </script>
 </body>
 </html>

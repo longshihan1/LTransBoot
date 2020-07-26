@@ -7,6 +7,6 @@ create table if not exists traceTime (
 `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 tag varchar(200),
  methodName varchar(200),
- cost integer ,
+ cost BIGINT,
  datetime varchar(35)
 );

@@ -1,9 +1,12 @@
-package com.longshihan.echarts.db.trace;
+package com.longshihan.echarts.model;
 
+import lombok.Data;
+
+@Data
 public class TraceTime {
     private String tag;//唯一标识符
     private String methodName;
-    private int cost;
+    private long cost;
     private String datetime;
 
     public String getMethodName() {
@@ -14,11 +17,11 @@ public class TraceTime {
         this.methodName = methodName;
     }
 
-    public int getCost() {
+    public long getCost() {
         return cost;
     }
 
-    public void setCost(int cost) {
+    public void setCost(long cost) {
         this.cost = cost;
     }
 
@@ -36,5 +39,9 @@ public class TraceTime {
 
     public void setDatetime(String datetime) {
         this.datetime = datetime;
+    }
+
+    public Object[] getObjects(){
+        return new Object[]{getTag(),getMethodName(),getCost(),getDatetime()};
     }
 }
