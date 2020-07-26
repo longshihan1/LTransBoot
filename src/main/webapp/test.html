@@ -43,28 +43,30 @@
                 tooltip: {
                     show: true,
                     trigger: 'axis',
+                    // formatter: function (params) {
+                    //     return '方法名:' + params.value + "\n" + params.dataIndex;
+                    // },
                     axisPointer: {
                         type: 'line',
                         animation: false,
+
                         label: {
-                            backgroundColor: '#505765',
-                            formatter: function (params) {
-                                return '方法名:'+params.seriesData[1].data;
-                            },
+                            backgroundColor: '#505765'
+
                         }
                     }
                 },
                 dataZoom: [{
-                        show: true,
-                        realtime: true,
-                        start: 65,
-                        end: 85
-                    }, {
-                        type: 'inside',
-                        realtime: true,
-                        start: 65,
-                        end: 85
-                    }],
+                    show: true,
+                    realtime: true,
+                    start: 65,
+                    end: 85
+                }, {
+                    type: 'inside',
+                    realtime: true,
+                    start: 65,
+                    end: 85
+                }],
                 xAxis: {
                     name: '日期',
                     type: 'category',
@@ -73,15 +75,13 @@
                     data: dataTime
                 },
                 yAxis: {
-                    name: '方法耗时'
+                    name: '方法耗时',
+                    max:400
                 },
                 series: [{
                     data: costs,
                     type: 'line',
-                    name:"方法耗时"
-                },{
-                    type: 'line',
-                    data: names
+                    name: "方法耗时"
                 }
                 ]
             };
