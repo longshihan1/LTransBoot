@@ -42,30 +42,26 @@
                 },
                 tooltip: {
                     show: true,
+
                     trigger: 'axis',
-                    // formatter: function (params) {
-                    //     return '方法名:' + params.value + "\n" + params.dataIndex;
-                    // },
                     axisPointer: {
                         type: 'line',
                         animation: false,
-
                         label: {
                             backgroundColor: '#505765'
-
                         }
                     }
                 },
                 dataZoom: [{
                     show: true,
                     realtime: true,
-                    start: 65,
-                    end: 85
+                    start: 80,
+                    end: 100
                 }, {
                     type: 'inside',
                     realtime: true,
-                    start: 65,
-                    end: 85
+                    start: 80,
+                    end: 100
                 }],
                 xAxis: {
                     name: '日期',
@@ -75,15 +71,22 @@
                     data: dataTime
                 },
                 yAxis: {
-                    name: '方法耗时',
-                    max:400
+                    name: '方法耗时'
                 },
                 series: [{
-                    data: costs,
                     type: 'line',
-                    name: "方法耗时"
-                }
-                ]
+                    name: "方法耗时",
+                    data: data.map(item=>({
+                         value:item.cost,
+                         tooltip: {
+                             show:true,
+                             trigger: 'item',
+                             formatter:it=>{
+                                 return '方法名：'+item.methodName+'<br/>'+'方法耗时：'+item.cost;
+                             }
+                         }
+                        }
+                    )),}]
             };
             // 使用刚指定的配置项和数据显示图表。
             myChart.setOption(option);

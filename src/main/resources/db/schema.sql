@@ -8,5 +8,6 @@ create table if not exists traceTime (
 tag varchar(200),
  methodName varchar(200),
  cost BIGINT,
- datetime varchar(35)
+ datetime varchar(35),
+ threadName varchar(50)
 );

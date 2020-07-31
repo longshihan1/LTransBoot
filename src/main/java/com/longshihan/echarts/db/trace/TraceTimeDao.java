@@ -13,10 +13,12 @@ import java.util.List;
 public class TraceTimeDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
+    String sql="insert into traceTime (tag,methodName,cost,datetime,threadName) values(?,?,?,?,?)";
 
     public void save(TraceTime traceTime) {
-        jdbcTemplate.update("insert into traceTime (tag,methodName,cost,datetime) values(?,?,?,?)"
-                , traceTime.getTag(), traceTime.getMethodName(), traceTime.getCost(), traceTime.getDatetime());
+        jdbcTemplate.update(sql
+                , traceTime.getTag(), traceTime.getMethodName(), traceTime.getCost(), traceTime.getDatetime()
+                ,traceTime.getThreadName());
     }
 
     public List<TraceTime> getAll() {
@@ -30,6 +32,6 @@ public class TraceTimeDao {
         for (int i = 0; i < traceTimes.size(); i++) {
             batchArgs.add(traceTimes.get(i).getObjects());
         }
-        jdbcTemplate.batchUpdate("insert into traceTime (tag,methodName,cost,datetime) values(?,?,?,?)", batchArgs);
+        jdbcTemplate.batchUpdate(sql, batchArgs);
     }
 }

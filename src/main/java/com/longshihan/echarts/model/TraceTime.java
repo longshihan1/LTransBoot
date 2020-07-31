@@ -8,6 +8,7 @@ public class TraceTime {
     private String methodName;
     private long cost;
     private String datetime;
+    private String threadName;
 
     public String getMethodName() {
         return methodName;
@@ -42,6 +43,14 @@ public class TraceTime {
     }
 
     public Object[] getObjects(){
-        return new Object[]{getTag(),getMethodName(),getCost(),getDatetime()};
+        return new Object[]{getTag(),getMethodName(),getCost(),getDatetime(),getThreadName()};
+    }
+
+    public String getThreadName() {
+        return threadName;
+    }
+
+    public void setThreadName(String threadName) {
+        this.threadName = threadName;
     }
 }
